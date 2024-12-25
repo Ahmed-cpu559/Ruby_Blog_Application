@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root  
+      MYSQL_DATABASE: myapp_development 
+    ports:
+      - "3306:3306"  
+
+
+  web:
+    build: . 
+    command: bash -c "sleep 3 && rm -f tmp/pids/server.pid && rails server -b 0.0.0.0"
+    volumes:
+      - ".:/app" 
+    ports:
+      - "3000:3000" 
+    depends_on:
+      - db  
+
+
+
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/app
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+
+
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db  
+      PMA_USER: root  
+      PMA_PASSWORD: root 
+    ports:
+      - "8080:80" 
+    depends_on:
+      - db  

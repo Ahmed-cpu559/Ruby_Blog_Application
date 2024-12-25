@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h3 {
+            color: #0056b3;
+        }
+
+        h1 {
+            border-bottom: 2px solid #0056b3;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        b {
+            display: block;
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-family: monospace;
+        }
+
+        p {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+
+        p.empty {
+            background-color: transparent;
+            border: none;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .endpoint {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To Run the Project</h1>
+        <b>
+            docker-compose build<br>
+            docker-compose run web rails db:setup<br>
+            docker-compose run web rails db:migrate<br>
+            docker-compose up<br>
+        </b>
+
+        <div class="endpoint">
+            <h3>(Access phpMyAdmin)</h3>
+            <p>To manage MySQL database, go to <a href="http://localhost:8080" target="_blank">phpMyAdmin</a>.</p>
+            <p>Use the credentials below:</p>
+            <p><b>Username: root</b></p>
+            <p><b>Password: (leave empty)</b></p>
+        </div>
+
+        <h1>All the Endpoints in the Project</h1>
+
+        <div class="endpoint">
+            <h3>(POST only)</h3>
+            <p>localhost:3000/auth/signup</p>
+            <p>{
+                "user": {
+                    "name": "Ahmed",
+                    "email": "ahmed6@example.com",
+                    "password": "password123",
+                    "password_confirmation": "password123"
+                }
+            }</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(POST only)</h3>
+            <p>localhost:3000/auth/login</p>
+            <p>{
+                "email": "ahmed6@example.com",
+                "password": "password123"
+            }</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(POST and token)</h3>
+            <p>http://localhost:3000/auth/post</p>
+            <p>{
+                "post": {
+                    "title": "iphone",
+                    "body": "iphone15 pro max",
+                    "tag_ids": [1, 3, 5]
+                }
+            }</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(DELETE and token)</h3>
+            <p>http://localhost:3000/auth/post/:id</p>
+            <p class="empty"></p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(PUT and token)</h3>
+            <p>http://localhost:3000/auth/post/:id</p>
+            <p>{
+                "post": {
+                    "title": "oppo"
+                }
+            }</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(POST and token)</h3>
+            <p>http://localhost:3000/auth/comment/:id</p>
+            <p>{
+                "comment": {
+                    "body": "this is first comment"
+                }
+            }</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(DELETE and token)</h3>
+            <p>http://localhost:3000/auth/comment/:id</p>
+            <p class="empty"></p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(PUT and token)</h3>
+            <p>http://localhost:3000/auth/comment/:id</p>
+            <p>{
+                "comment": {
+                    "body": "this is updated comment.."
+                }
+            }</p>
+        </div>
+
+        <div class="endpoint">
+            <h3>(PUT and token)</h3>
+            <p>http://localhost:3000/auth/post/post_id/tag_id</p>
+            <p>{
+                "tag_path": {
+                    "tag_id": 7
+                }
+            }</p>
+        </div>
+    </div>
+</body>
+</html>

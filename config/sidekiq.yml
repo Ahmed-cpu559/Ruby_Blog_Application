@@ -1,0 +1,4 @@
+delete_old_posts:
+  cron: '0 0 * * *' 
+  class: DeleteOldPostsWorker
+  queue: default
